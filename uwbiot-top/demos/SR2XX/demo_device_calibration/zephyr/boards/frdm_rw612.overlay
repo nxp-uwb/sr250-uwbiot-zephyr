@@ -1,0 +1,33 @@
+/*
+ *
+ * Copyright 2026 NXP
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	aliases {
+		i2c-node = &flexcomm2;
+	};
+
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+	};
+};
+
+&flexcomm1{
+	compatible = "nxp,lpc-spi";
+	status = "okay";
+	sr2xx@0 {
+		compatible = "nxp,uwb-device";
+		reg = <0>;
+		spi-max-frequency = <16000000>;
+		uwb,irq-gpios = <&hsgpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+		uwb,rstn-gpios = <&hsgpio0 18 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+	};
+};
+
+&zephyr_udc0 {
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};

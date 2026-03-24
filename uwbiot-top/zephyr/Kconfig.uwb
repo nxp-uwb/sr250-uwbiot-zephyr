@@ -1,0 +1,70 @@
+# /* Copyright 2025 NXP
+#  *
+#  * NXP Proprietary. This software is owned or controlled by NXP and may only
+#  * be used strictly in accordance with the applicable license terms.  By
+#  * expressly accepting such terms or by downloading, installing, activating
+#  * and/or otherwise using the software, you are agreeing that you have read,
+#  * and that you agree to comply with and are bound by, such license terms.  If
+#  * you do not agree to be bound by the applicable license terms, then you may
+#  * not retain, install, activate or otherwise use the software.
+#  */
+
+
+# SPDX-License-Identifier: Apache-2.0
+# Top level Kconfig file for out of tree ZSDK
+
+menuconfig NXP_UWB_ZEPHYR_MODULE
+	bool "NXP UWBIOT module Support"
+	help
+	  This option enables the UWBIOT MW library.
+
+if NXP_UWB_ZEPHYR_MODULE
+
+module = UWBIOT
+module-str = uwbiot
+source "subsys/logging/Kconfig.template.log_config"
+
+config NXP_UWB_TEST_ZEPHYR_MODULE
+	bool "NXP UWBIOT module Test Support"
+	default n
+	help
+	  This option enables the UWBIOT MW library Testing.
+
+config NXP_UWB_DEVICE_SR2XXT
+	bool "NXP UWB SR2XXT device Support"
+	help
+	  This option enables the SR2XXT device Support.
+
+config NXP_UWB_DEVICE_SR1XXT
+	bool "NXP UWB SR1XXT device Support"
+	help
+	  This option enables the SR1XXT device Support.
+
+config NXP_UWB_DEVICE_SR040
+	bool "NXP UWB SR040 device Support"
+	help
+	  This option enables the SR040 device Support.
+
+config NXP_UWB_NTF_STACK_SIZE
+    int "Stack size for the UWB ntf Task"
+	default 7168 if HAS_MCUX
+	default 1792
+    help
+	  This option set stack size of notification task.
+
+config NXP_UWB_STACK_SIZE
+    int "Stack size for the UWB Task"
+	default 1500 if HAS_MCUX
+	default 1500
+    help
+	  This option set stack size of uwb main task.
+
+config NXP_UWB_READER_STACK_SIZE
+    int "Stack size for the UWB Reader Task"
+	default 1024 if HAS_MCUX
+	default 512
+    help
+	  This option set stack size of uwb reader task.
+
+
+endif #NXP_UWB_ZEPHYR_MODULE

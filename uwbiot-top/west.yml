@@ -1,0 +1,174 @@
+# The west manifest file (west.yml) for the NXP ZSDK
+#
+# The per-installation west configuration file, .west/config, sets the
+# path to the project containing this file in the [manifest] section's
+# "path" variable.
+#
+# You are free to create your own manifest files and put them in any
+# repository you want, to create your own custom Zephyr installations.
+# For example, you could create a manifest file in your own out of
+# tree application directory, which would pull this zephyr repository
+# in as an ordinary project.
+#
+# You can pass your manifest repositories to west init when creating a
+# new Zephyr installation. See the west documentation for more
+# information.
+#
+#     [manifest]
+#     path = zsdk
+#
+manifest:
+  version: "1.2"
+
+  # "remotes" is a list of locations where git repositories are cloned
+  # and fetched from.
+  remotes:
+    - name: nxp
+      url-base: https://github.com/NXP
+    - name: nxp-zsdk
+      url-base: https://github.com/nxp-zephyr
+    - name: zephyrproject
+      url-base: https://github.com/zephyrproject-rtos
+
+  # If not otherwise specified, the projects below should be obtained
+  # from the zsdk remote.
+  defaults:
+    remote: nxp-zsdk
+
+  group-filter: [+optional, -bifrost]
+
+  # "projects" is a list of git repositories to populate NXP Zephyr downstream
+  # workspace.
+  projects:
+
+    - name: zephyr
+      repo-path: nxp-zephyr
+      revision: aa70d2e37bf408a2b7ffed1c66b21e8ba1c02555
+      import:
+        #
+        # ZSDK imports the contents of nxp-zephyr/west.yml at the above
+        # revision. Only the projects explicitly named in the
+        # following allowlist are imported.
+        #
+        # If there is an override of one of the Zephyr modules,
+        # remove it from the name-allowlist and add the project
+        # explicitly below the list.
+        #
+        name-allowlist:
+          - TraceRecorderSource
+          - canopennode
+          - chre
+          - cmsis
+          - cmsis-dsp
+          - cmsis-nn
+          - cmsis_6
+          - edtt
+          - fatfs
+          - hal_nxp
+          - hal_st
+          - hal_xtensa
+          - liblc3
+          - libmetal
+          - littlefs
+          - loramac-node
+          - lvgl
+          - lz4
+          - mcuboot
+          - mipi-sys-t
+          - nanopb
+          - net-tools
+          - open-amp
+          - picolibc
+          - segger
+          - tinycrypt
+          - uoscore-uedhoc
+          - zcbor
+          - zscilib
+          - openthread
+          - nrf_hw_models
+          - hal_nordic
+
+    # For internal NXP development support
+    - name: bifrost
+      west-commands: scripts/west_commands.yml
+      repo-path: bifrost
+      revision: bca5f40f6aa7eb55957dbbd28a4e988f23336072
+      groups:
+        - bifrost
+
+    #
+    # NXP based overrides of Zephyr modules and additional
+    # added modules
+    #
+    - name: hal_nxp
+      revision: 55cc024cb6b84c374f72e4806c56f317b207aa3c
+      path: modules/hal/nxp
+      groups:
+        - hal
+    - name: els_pkc
+      remote: nxp
+      repo-path: els_pkc
+      revision: 71d4a89c03fb32e618ee02c0cd54b3fc92736c96
+      path: modules/crypto/els_pkc
+      groups:
+        - crypto
+    - name: psa_crypto_driver
+      remote: nxp
+      repo-path: psa_crypto_driver
+      revision: 7d1ef3114a35f3d2680b4419fca8e78cf88eb1e4
+      path: modules/crypto/psa_crypto_driver
+      groups:
+        - crypto
+    - name: mbedtls
+      remote: nxp
+      repo-path: nxp_mbedtls
+      revision: 73423cfa8d939941b08321af042762c718fc78bf
+      path: modules/crypto/mbedtls
+      groups:
+        - crypto
+    - name: trusted-firmware-m
+      remote: nxp
+      repo-path: nxp_tf-m
+      revision: 9a6c6f95877ad0b2cf8b8a7031399d29dfabd686
+      path: modules/tee/tf-m/trusted-firmware-m
+      groups:
+        - tee
+    - name: psa-arch-tests
+      remote: nxp
+      repo-path: nxp_psa_arch_test
+      revision: 32784fe0367394a6e70dfe1771e0301cb4ab76f3
+      path: modules/tee/tf-m/psa-arch-tests
+      groups:
+        - tee
+    - name: tf-m-tests
+      revision: a286347e6a5dd37a9a5e960450ffc0260d63fb27
+      path: modules/tee/tf-m/tf-m-tests
+      remote: zephyrproject
+      groups:
+        - tee
+    - name: hostap
+      repo-path: hostap
+      revision: c822ca27e38beaa7ed3cb35cf89148746b0eedc0
+      path: modules/lib/hostap
+    - name: wifi_nxp
+      remote: nxp
+      repo-path: wifi_nxp
+      revision: 9647bb3ce08edb5b9b617c06e5d5804cad65e48a
+      path: modules/hal/nxp/mcux/middleware/wifi_nxp
+    - name: wifi_nb_fw
+      remote: nxp
+      repo-path: wifi_nb_fw
+      revision: 5bf336de851dfeed0a86fbc931d5fb65e40eeb26
+      path: modules/hal/nxp/zephyr/blobs/
+    - name: nxp_iot_agent
+      remote: nxp
+      repo-path: el2go-agent
+      revision: 3eba50dbec2ba51b9d099236c580caa005df6fbe
+      path: modules/lib/nxp_iot_agent
+
+    # Add any additional third-party repositories.
+
+  self:
+    path: uwbiot-top
+    # Configure west extensions.
+    #west-commands: scripts/west-commands.yml
