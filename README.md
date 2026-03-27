@@ -46,13 +46,17 @@ pip install -r zephyr/scripts/requirements.txt
 ```
 4. Set up Zephyr environment variables
 ```bash
-zephyr\zephyr-env.cmd # On Linux, use: source zephyr/zephyr-env.sh
+zephyr\zephyr-env.cmd
+```
+On Linux, use:
+```bash
+source zephyr/zephyr-env.sh
 ```
 5. Build the application
 ```bash
 west build -b <board_name> -p auto <path_to_demo>
 ```
-Where `<board_name>` is the target board (e.g., `frdm-rw612`) and `<path_to_demo>` is the path to the demo application directory (e.g., `uwbiot-top/demos/SR2xx/demo_sr2xx_fw_update/zephyr`).
+Where `<board_name>` is the target board (e.g., `frdm_rw612`) and `<path_to_demo>` is the path to the demo application directory (e.g., `uwbiot-top/demos/SR2xx/demo_sr2xx_fw_update/zephyr`).
 
 6. Running the application
 Flash the built application to the target board:
