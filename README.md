@@ -7,7 +7,7 @@ The reference platform is composed of:
 - [SR250-ARD Development board](https://www.nxp.com/SR250UWBSHIELD)
 - [FRDM-RW612 Development Board](https://www.nxp.com/FRDM-RW612) 
 
-⚠️ The FRDM-RW612 board requires a small rework to expose the SPI interface on the Arduino headers. You can find relevant instructions [here](https://github.com/nxp-appcodehub/an-sr250-uwb-plug-and-play-demo/FRDM-RW612_rework_for_SPI.md).
+⚠️ The FRDM-RW612 board requires a small rework to expose the SPI interface on the Arduino headers. You can find relevant instructions [here](https://github.com/nxp-appcodehub/an-sr250-uwb-plug-and-play-demo/blob/main/FRDM-RW612_rework_for_SPI.md).
 
 ## Revision history
 | Version | Description / Update |
